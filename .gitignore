@@ -1,0 +1,9 @@
+.DS*
+a.out
+a.out*
+*.swp
+libftst/
+m*.*
+*.gch
+textos/
+
