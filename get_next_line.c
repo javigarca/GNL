@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2021/11/25 17:22:23 by javigarc         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:44:02 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 			line = (char *) malloc(sizeof(char) * (end + ft_strlen(leftover) + 1));
 			if (!line)
 				return (0);
-			line = ft_strjoin(leftover, buffer);
+			line = ft_strjoin(leftover, ft_feedline(buffer,end));
 		}
 		else
 		{
@@ -91,6 +91,7 @@ char	*get_next_line(int fd)
 				return (0);
 			line = ft_feedline(buffer, end);
 		}
+		free (leftover);
 		free (buffer);
 		return (line);
 	}
@@ -108,8 +109,8 @@ char	*get_next_line(int fd)
 		{
 			line = (char *) malloc(sizeof(char) * (end + 1));
 			line = ft_feedline(buffer, end);
-			line[end] = '\n';
 		}
+		line[end] = '\n';
 		free (buffer);
 		return (line);
 	}
