@@ -1,0 +1,7 @@
+Este es el archivo de pruebas
+para el get_next_line. La cadenas
+esto es una linea entera
+aquí voy a meter un '\0' a ver
+aquí van saltos '\n' \n, dos uno con comillas simples y otro no
+última linea
+123456789012345678901234567890123456789012

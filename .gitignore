@@ -5,5 +5,4 @@ a.out*
 libftst/
 m*.*
 *.gch
-textos/
-
+gnlTester/
