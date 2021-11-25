@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:47:34 by javigarc          #+#    #+#             */
-/*   Updated: 2021/11/25 17:45:54 by javigarc         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:57:50 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		i++;
 		j++;
 	}
+	dest[i] = '\0';
 	if (size < d_sz)
 		return (s_sz + size);
 	return (d_sz + s_sz);
@@ -55,16 +56,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	ft_strlcpy(string, s1, ft_strlen(s1) + 1);
 	ft_strlcat(string, s2, pos);
+	string[ft_strlen(string)] = 00;
 	return ((char *) string);
 }
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	rtrn;
 
 	i = 0;
-	rtrn = 0;
 	if (size > 0)
 	{
 		while ((i < size - 1) && (src[i] != 00))
@@ -72,6 +72,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 			dest[i] = src[i];
 			i++;
 		}
+		dest[i] = 00;
 		return (1);
 	}
 	return (0);
