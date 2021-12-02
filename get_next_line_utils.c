@@ -56,7 +56,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (0);
 	ft_strlcpy(string, s1, ft_strlen(s1) + 1);
 	ft_strlcat(string, s2, pos);
-	string[ft_strlen(string)] = 00;
+//	string[ft_strlen(string)] = 00;
 	return ((char *) string);
 }
 
@@ -98,4 +98,31 @@ char	*ft_strdup(char *src)
 	}
 	dst[i] = '\0';
 	return (dst);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*aux;
+	size_t	i;
+	size_t	z;
+
+	i = (size_t) start;
+	if (!s)
+		return (NULL);
+	if ((i >= ft_strlen(s)) || (len == 0))
+		return (ft_strdup("\0"));
+	z = 0;
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	aux = (char *) malloc(len + 1);
+	if (!aux)
+		return (0);
+	while (z < len)
+	{
+		aux[z] = s[i];
+		z++;
+		i++;
+	}
+	aux[z] = '\0';
+	return (aux);
 }

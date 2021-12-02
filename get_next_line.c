@@ -64,25 +64,37 @@ char	*get_next_line(int fd)
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
 		return (NULL);
-	if (!leftover)
-	{
-		leftover = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!leftover)
-			return (NULL);
-	}
+//	if (!leftover)
+//	{
+//		leftover = NULL;
+//		leftover = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
+//		if (!leftover)
+//			return (NULL);
+//	}
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (0);
 	read (fd, buffer, BUFFER_SIZE);
-	end = ft_searchend(buffer, 0);
-	if (end != 0)
+	end = (ft_searchend(buffer, 0) +  ft_searchend(buffer, '\n'));
+	if (end == 0)
 	{
+		if (leftover == NULL)
+			leftover = ft_feedline(buffer, ft_strlen(buffer));
+		else
+			leftover = ft_strjoin(leftover, buffer);
+		free(buffer);
+		get_next_line(fd);
+		return ("ERR");
+	}
+	else
+	{
+	printf("llegmaos a line");	
 		if (leftover != NULL)
 		{
 			line = (char *) malloc(sizeof(char) * (end + ft_strlen(leftover) + 1));
 			if (!line)
 				return (0);
-			line = ft_strjoin(leftover, ft_feedline(buffer,end));
+			line = ft_strjoin(leftover, ft_feedline(buffer,end));	
 		}
 		else
 		{
@@ -91,31 +103,20 @@ char	*get_next_line(int fd)
 				return (0);
 			line = ft_feedline(buffer, end);
 		}
-		free (leftover);
-		free (buffer);
-		return (line);
-	}
-	end = ft_searchend(buffer, '\n');
-	if (end != 0)
-	{
-		if (leftover != NULL)
+		if ((ft_searchend(buffer, '\n') > 0))
 		{
-			line = (char *) malloc(sizeof(char) * (end + ft_strlen(leftover) + 1));
-			if (!line)
-				return (0);
-			line = ft_strjoin(leftover, ft_feedline(buffer, end));
+			leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
+			line[ft_strlen(line) + 1] = '\n';
 		}
 		else
 		{
-			line = (char *) malloc(sizeof(char) * (end + 1));
-			line = ft_feedline(buffer, end);
+			line[ft_strlen(line) + 1] = 00;
 		}
-		line[end] = '\n';
-		free (buffer);
+		printf("antes de return: %s", line);
+		leftover = NULL;
+		free(buffer);
 		return (line);
 	}
-	leftover = buffer;
-	free (buffer);
-	get_next_line(fd);
-	return (NULL);
+//	free (buffer);
+//	return ("ErrOR");
 }
