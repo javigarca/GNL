@@ -16,10 +16,10 @@ fd = open(texto, O_RDONLY);
 
 linea = get_next_line(fd);
 printf("(%s)", linea);
-//printf("(%s)", get_next_line(fd));
-//printf("(%s)", get_next_line(fd));
+printf("(%s)", get_next_line(fd));
+printf("(%s)", get_next_line(fd));
 //printf("%s", get_next_line(fd));
-//printf("%s", get_next_line(fd));
+printf("%s", get_next_line(fd));
 fd = close(fd);
 return (0);
 }
