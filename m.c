@@ -24,20 +24,19 @@ if (fd < 0)
 //while (linea)
 //	{
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 		printf("%s", linea);
-		linea = get_next_line(fd);
+			linea = get_next_line(fd);
 //	}
 fd = close(fd);
 return (0);

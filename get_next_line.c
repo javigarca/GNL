@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2021/12/22 13:57:57 by javigarc         ###   ########.fr       */
+/*   Updated: 2021/12/22 20:38:07 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*leftover;
 	int			end;
+	int			eof;
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
 		return (NULL);
@@ -70,14 +71,16 @@ char	*get_next_line(int fd)
 		if (!buffer)
 			return (0);
 		read (fd, buffer, BUFFER_SIZE);
-		end = (ft_searchend(buffer, '\0') +  ft_searchend(buffer, '\n'));
-		if (end == 0)
+		eof = ft_searchend(buffer, '\0');
+		end = ft_searchend(buffer, '\n');
+		if ((end + eof) == 0)
 		{
 			if (leftover == NULL)
 				leftover = ft_feedline(buffer, ft_strlen(buffer));
 			else
 				leftover = ft_stradd(leftover, buffer);
 			free(buffer);
+			printf("%s", leftover);
 			get_next_line(fd);
 		}
 		else
@@ -96,9 +99,9 @@ char	*get_next_line(int fd)
 					return (0);
 				line = ft_feedline(buffer, end);
 			}
-			if ((ft_searchend(buffer, '\n') > 0))
+			if (end > 0)
 					leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
-			if ((ft_searchend(buffer, '\0') > 0))
+			if (eof > 0)
 				leftover = NULL;
 			free (buffer);
 			return (line);
