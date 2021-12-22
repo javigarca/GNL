@@ -6,12 +6,13 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:47:34 by javigarc          #+#    #+#             */
-/*   Updated: 2021/11/25 17:57:50 by javigarc         ###   ########.fr       */
+/*   Updated: 2021/12/22 13:40:16 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	i;
@@ -40,7 +41,34 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 		return (s_sz + size);
 	return (d_sz + s_sz);
 }
+*/
 
+char	*ft_stradd(char *dest, char *src)
+{
+	size_t  i;
+	size_t  j;
+	size_t  d_sz;
+	size_t  s_sz;
+	
+	d_sz = 0;
+	s_sz = 0;
+    while (dest[d_sz] != 00)
+		d_sz++;
+    while (src[s_sz] != 00)
+		s_sz++;
+    i = d_sz;
+	j = 0;
+    while (src[j])
+	{
+		dest[i] = src[j];
+		i++;
+        j++;
+	}
+     dest[i] = '\0';
+       return (dest);
+}
+
+/* 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	pos;
@@ -59,8 +87,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 //	string[ft_strlen(string)] = 00;
 	return ((char *) string);
 }
+*/
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t size)
+/*
+ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
 	size_t	i;
 
@@ -77,6 +107,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 	}
 	return (0);
 }
+*/
 
 char	*ft_strdup(char *src)
 {
