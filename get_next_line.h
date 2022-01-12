@@ -6,7 +6,7 @@
 /*   By: javigarc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 13:50:14 by javigarc          #+#    #+#             */
-/*   Updated: 2021/12/22 13:27:24 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:36:27 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		ft_searchend(char *str, int c);
 char	*ft_feedline(char *str, int len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_stradd(char *dest, char *src);
+char	*ft_create_line(char *buf, char *leftovr, int len);
 
 #endif

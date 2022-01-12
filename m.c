@@ -36,8 +36,7 @@ if (fd < 0)
 		printf("%s", linea);
 			linea = get_next_line(fd);
 		printf("%s", linea);
-			linea = get_next_line(fd);
-//	}
+		//	}
 fd = close(fd);
 return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:47:34 by javigarc          #+#    #+#             */
-/*   Updated: 2021/12/22 13:40:16 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:36:30 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,4 +156,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	aux[z] = '\0';
 	return (aux);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != 00)
+		i++;
+	return (i);
 }

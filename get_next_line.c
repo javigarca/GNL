@@ -6,21 +6,11 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2021/12/22 20:38:07 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/01/12 14:36:32 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != 00)
-		i++;
-	return (i);
-}
 
 int	ft_searchend(char *str, int c)
 {
@@ -58,55 +48,64 @@ char	*ft_feedline(char *str, int len)
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*line;
+	char		*next_line;
 	static char	*leftover;
 	int			end;
 	int			eof;
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
 		return (NULL);
-	else
+	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1 ));
+	if (!buffer)
+		return (0);
+	read (fd, buffer, BUFFER_SIZE);
+	eof = ft_searchend(buffer, '\0');
+	end = ft_searchend(buffer, '\n');
+	if (end == 0)
 	{
-		buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1 ));
-		if (!buffer)
-			return (0);
-		read (fd, buffer, BUFFER_SIZE);
-		eof = ft_searchend(buffer, '\0');
-		end = ft_searchend(buffer, '\n');
-		if ((end + eof) == 0)
+		if (eof == 0)
 		{
 			if (leftover == NULL)
 				leftover = ft_feedline(buffer, ft_strlen(buffer));
 			else
 				leftover = ft_stradd(leftover, buffer);
 			free(buffer);
-			printf("%s", leftover);
 			get_next_line(fd);
 		}
 		else
-		{
-			if (leftover != NULL)
-			{
-				line = (char *) malloc(sizeof(char) * (end + ft_strlen(leftover) + 1));
-				if (!line)
-					return (0);
-				line = ft_stradd(leftover, ft_feedline(buffer,end));	
-			}
-			else
-			{
-				line = (char *) malloc(sizeof(char) * (end + 1));
-				if (!line)
-					return (0);
-				line = ft_feedline(buffer, end);
-			}
-			if (end > 0)
-					leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
-			if (eof > 0)
-				leftover = NULL;
-			free (buffer);
-			return (line);
-		}
-		//return (NULL);
+			return(ft_create_line(buffer, leftover, eof));
+	} 
+	else
+	{
+		next_line = ft_strdup(ft_create_line(buffer, leftover, end));
+		if (eof > 0)
+			leftover = NULL;
+		else
+			leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
+		free(buffer);
+		return (next_line);
 	}
-	return (NULL);
+	return(NULL);
 }
+
+char	*ft_create_line(char *buf, char *leftovr, int len)
+{
+	char *line;
+
+	if (leftovr != NULL)
+	{
+		line = (char *) malloc(sizeof(char) * (len + ft_strlen(leftovr) + 1));
+		if (!line)
+			return (0);
+		line = ft_stradd(leftovr, ft_feedline(buf, len));	
+	}
+	else
+	{
+		line = (char *) malloc(sizeof(char) * (len + 1));
+		if (!line)
+			return (0);
+		line = ft_feedline(buf, len);
+	}
+	return (line);
+}
+
