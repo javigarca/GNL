@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2022/01/12 21:16:31 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:31:08 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*nxt_ln;
 	static char	*leftover;
+	int			eof;
 	int			end;
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
@@ -57,12 +58,17 @@ char	*get_next_line(int fd)
 	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (0);
-	read (fd, buffer, BUFFER_SIZE);
+	eof = read (fd, buffer, BUFFER_SIZE);
+	if (eof == 0)
+	{
+		free(buffer);
+		buffer = NULL;
+	}
 	end = ft_searchend(buffer, '\n');
-	nxt_ln = ft_strdup(NULL);
+	nxt_ln = "LL";
 	if (end == 0)
 	{
-		if (ft_searchend(buffer, '\0') == 0)
+		if (eof == BUFFER_SIZE)
 		{
 			if (leftover == NULL)
 				leftover = ft_feedline(buffer, ft_strlen(buffer));
@@ -71,7 +77,7 @@ char	*get_next_line(int fd)
 			get_next_line(fd);
 		}
 		else
-			return(ft_create_line(buffer, leftover, ft_searchend(buffer, '\0')));
+			return(ft_create_line(buffer, leftover, eof));
 	}
 	else
 	{
@@ -79,6 +85,7 @@ char	*get_next_line(int fd)
 		leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
 	}
 	free(buffer);
+	buffer = NULL;
 	return (nxt_ln);
 }
 
