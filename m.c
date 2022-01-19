@@ -10,22 +10,27 @@ int main(void)
 char *texto;
 int fd;
 
-texto = "textos/3pruebas.txt";
+texto = "textos/2pruebas.txt";
 fd = open(texto, O_RDONLY);
 if (fd < 0)
 {
 	printf("%s\n", strerror(errno));
 	write (2, "FAIL", 4);
 }
-
-printf("%s", get_next_line(fd));
-printf("%s", get_next_line(fd));
-printf("%s", get_next_line(fd));
-printf("%s", get_next_line(fd));
-printf("%s", get_next_line(fd));
+texto = get_next_line(fd);
+printf("%s", texto);
+texto = get_next_line(fd);
+printf("%s", texto);
+texto = get_next_line(fd);
+printf("%s", texto);
+texto = get_next_line(fd);
+printf("%s", texto);
+texto = get_next_line(fd);
+printf("%s", texto);
 //printf("%s", get_next_line(fd));
 //printf("%s", get_next_line(fd));
 fd = close(fd);
+
 return (0);
 }
 

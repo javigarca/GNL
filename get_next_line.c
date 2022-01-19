@@ -42,22 +42,16 @@ char	*ft_feedline(char *str, int len)
 		aux[i] = str[i];
 		i++;
 	}
+	aux[i] = '\0';
 	return (aux);
-}
-
-void	ft_free_var(char *var)
-{
-	free(var);
-	var = NULL;
 }
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*nxt_ln;
+	char		*line;
 	static char	*loader;
 	int			eof;
-	int			end;
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
 		return (NULL);
@@ -67,43 +61,37 @@ char	*get_next_line(int fd)
 	eof = read (fd, buffer, BUFFER_SIZE);
 	if (eof == 0)
 	{
-		free(buffer);
-		buffer = NULL;
-		return(NULL);
+		if (!loader)
+			return (NULL);
 	}
 	else
-	{
 		if (!loader)
-			loader = ft_strdup(buffer);
+			loader = buffer;
 		else
-		{
-	//		printf("llenando el loader con buffer");
-			loader = ft_stradd(loader,buffer);
-		}
-	}
-	end = ft_searchend(loader, '\n');
-	free(buffer);
+			loader = ft_stradd(loader, buffer);
 	buffer = NULL;
-	nxt_ln = NULL;
+//	line = NULL;
+	free(buffer);
+	line = ft_strdup(get_next_line_2(&loader, eof, BUFFER_SIZE, fd));
+	return (line);
+}
+
+char	*get_next_line_2(char **ldr, int eofb, int bufflen, int fdb)
+{	
+	int		end;
+	char	*aux;
+
+	end = ft_searchend(*ldr, '\n');
 	if (end == 0)
 	{
-		if (ft_searchend(loader, '\0') == 0)
-		{
-		//	printf("LOD: %s\n", loader);
-			get_next_line(fd);
-		}
-		else
-		{
-		//	printf("LOD2: %s\n", loader);
-			nxt_ln = ft_strdup(loader);
-		}
+		if (eofb == bufflen)
+			get_next_line(fdb);
+		aux = ft_strdup(*ldr);
 	}
 	else
 	{
-		nxt_ln = ft_feedline(loader,end);
-		loader = ft_substr(loader, end, (ft_strlen(loader) - end));
-//		printf("loader: %s*\n", loader);
-//		printf("next line: %s*\n", nxt_ln);
+		aux = ft_feedline(*ldr, end);
+		*ldr = ft_substr(*ldr, end, (ft_strlen(*ldr) - end));
 	}
-	return (nxt_ln);
+	return (aux);
 }

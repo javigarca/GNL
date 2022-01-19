@@ -20,15 +20,12 @@
 # include <string.h>
 
 char	*get_next_line(int fd);
+char	*get_next_line_2(char **ldr, int eofb, int bufflen, int fdb);
 char	*ft_strdup(char *src);
-//size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-size_t	ft_strlen(const char *s);
-//char	*ft_strjoin(char const *s1, char const *s2);
-//size_t	ft_strlcat(char *dest, const char *src, size_t size);
+int		ft_strlen(const char *s);
 int		ft_searchend(char *str, int c);
 char	*ft_feedline(char *str, int len);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char *s, int start, int len);
 char	*ft_stradd(char *dest, char *src);
-char	*ft_create_line(char *buf, char *leftovr, int len);
 
 #endif

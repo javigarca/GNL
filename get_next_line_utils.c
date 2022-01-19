@@ -16,17 +16,11 @@ char	*ft_stradd(char *dest, char *src)
 {
 	size_t	i;
 	size_t	j;
-	size_t	d_sz;
-	size_t	s_sz;
 
-	d_sz = 0;
-	s_sz = 0;
-	while (dest[d_sz] != 00)
-		d_sz++;
-	while (src[s_sz] != 00)
-		s_sz++;
-	i = d_sz;
+	i = 0;
 	j = 0;
+	while (dest[i] != 00)
+		i++;
 	while (src[j])
 	{
 		dest[i] = src[j];
@@ -65,13 +59,13 @@ char	*ft_strdup(char *src)
 	return (dst);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, int start, int len)
 {
 	char	*aux;
-	size_t	i;
-	size_t	z;
+	int		i;
+	int		z;
 
-	i = (size_t) start;
+	i = start;
 	if (!s)
 		return (NULL);
 	if ((i >= ft_strlen(s)) || (len == 0))
@@ -92,7 +86,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (aux);
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
 	size_t	i;
 

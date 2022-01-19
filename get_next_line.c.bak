@@ -42,14 +42,15 @@ char	*ft_feedline(char *str, int len)
 		aux[i] = str[i];
 		i++;
 	}
+	aux[i] = '\0';
 	return (aux);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*nxt_ln;
-	static char	*leftover;
+	char		*nxtln;
+	static char	*loader;
 	int			eof;
 	int			end;
 
@@ -61,51 +62,30 @@ char	*get_next_line(int fd)
 	eof = read (fd, buffer, BUFFER_SIZE);
 	if (eof == 0)
 	{
-		free(buffer);
-		buffer = NULL;
+		if (!loader)
+			return(NULL);
 	}
-	end = ft_searchend(buffer, '\n');
-	nxt_ln = "LL";
+	else
+	{
+		if (!loader)
+			loader = buffer;
+		else
+			loader = ft_stradd(loader,buffer);
+	}
+	end = ft_searchend(loader, '\n');
+	buffer = NULL;
+	free(buffer);
+	nxtln = NULL;
 	if (end == 0)
 	{
 		if (eof == BUFFER_SIZE)
-		{
-			if (leftover == NULL)
-				leftover = ft_feedline(buffer, ft_strlen(buffer));
-			else
-				leftover = ft_stradd(leftover, buffer);
 			get_next_line(fd);
-		}
-		else
-			return(ft_create_line(buffer, leftover, eof));
+		nxtln = ft_strdup(loader);
 	}
 	else
 	{
-		nxt_ln = ft_create_line(buffer, leftover, end);
-		leftover = ft_substr(buffer, end, (ft_strlen(buffer) - end));
+		nxtln = ft_strdup(ft_feedline(loader, end));
+		loader = ft_substr(loader, end, (ft_strlen(loader) - end));
 	}
-	free(buffer);
-	buffer = NULL;
-	return (nxt_ln);
-}
-
-char	*ft_create_line(char *buf, char *leftovr, int len)
-{
-	char	*line;
-
-	if (leftovr != NULL)
-	{
-		line = (char *) malloc(sizeof(char) * (len + ft_strlen(leftovr) + 1));
-		if (!line)
-			return (0);
-		line = ft_stradd(leftovr, ft_feedline(buf, len));
-	}
-	else
-	{
-		line = (char *) malloc(sizeof(char) * (len + 1));
-		if (!line)
-			return (0);
-		line = ft_feedline(buf, len);
-	}
-	return (line);
+	return (nxtln);
 }
