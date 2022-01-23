@@ -20,12 +20,13 @@
 # include <string.h>
 
 char	*get_next_line(int fd);
-char	*get_next_line_2(char **ldr, int eofb, int bufflen, int fdb);
+char	*get_next_line_2(char **ldr, int endb);
 char	*ft_strdup(char *src);
 int		ft_strlen(const char *s);
 int		ft_searchend(char *str, int c);
 char	*ft_feedline(char *str, int len);
 char	*ft_substr(char *s, int start, int len);
 char	*ft_stradd(char *dest, char *src);
+int		ft_readfile(int fdr, char **ldr);
 
 #endif

@@ -46,52 +46,78 @@ char	*ft_feedline(char *str, int len)
 	return (aux);
 }
 
+int	ft_readfile(int fdr, char **ldr)
+{
+	char	*buffer;
+	int		bytes;
+
+	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (-1);
+	bytes = read (fdr, buffer, BUFFER_SIZE);
+	buffer[bytes] = '\0';
+	if (bytes == 0)
+	{
+		if (!*ldr)
+			return (-1);
+	}
+	else
+	{
+		if (!*ldr)
+			*ldr = buffer;
+		else
+			*ldr = ft_stradd(*ldr, buffer);
+	}
+	buffer = NULL;
+	free(buffer);
+	return (bytes);
+}
+
 char	*get_next_line(int fd)
 {
-	char		*buffer;
 	char		*line;
 	static char	*loader;
 	int			eof;
+	int			end;
 
 	if ((fd < 0) || (BUFFER_SIZE < 1))
 		return (NULL);
-	buffer = (char *) malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (0);
-	eof = read (fd, buffer, BUFFER_SIZE);
-	if (eof == 0)
+	if (!loader)
+		loader = NULL;
+	line = NULL;
+	eof = BUFFER_SIZE;
+	end = 0;
+	while ((end == 0) && (eof == BUFFER_SIZE))
 	{
-		if (!loader)
+		eof = ft_readfile(fd, &loader);
+		if (eof < 0)
 			return (NULL);
+		end = ft_searchend(loader, '\n');
+		if ((end == 0) && (eof < BUFFER_SIZE))
+			end = eof;
 	}
-	else
-		if (!loader)
-			loader = buffer;
-		else
-			loader = ft_stradd(loader, buffer);
-	buffer = NULL;
-//	line = NULL;
-	free(buffer);
-	line = ft_strdup(get_next_line_2(&loader, eof, BUFFER_SIZE, fd));
+	line = ft_strdup(get_next_line_2(&loader, end));
 	return (line);
 }
 
-char	*get_next_line_2(char **ldr, int eofb, int bufflen, int fdb)
+char	*get_next_line_2(char **ldr, int endb)
 {	
-	int		end;
 	char	*aux;
 
-	end = ft_searchend(*ldr, '\n');
-	if (end == 0)
+	if (endb == 0)
 	{
-		if (eofb == bufflen)
-			get_next_line(fdb);
-		aux = ft_strdup(*ldr);
+		aux = (char *) malloc (sizeof(char) * (ft_strlen(*ldr) + 1));
+		if (!aux)
+			return (0);
+		aux = *ldr;
 	}
 	else
 	{
-		aux = ft_feedline(*ldr, end);
-		*ldr = ft_substr(*ldr, end, (ft_strlen(*ldr) - end));
+		aux = (char *) malloc (sizeof(char) * (endb + 1));
+		if (!aux)
+			return (0);
+		aux = ft_feedline(*ldr, endb);
+		*ldr = ft_substr(*ldr, endb, (ft_strlen(*ldr) - endb));
 	}
 	return (aux);
 }
