@@ -1,0 +1,16 @@
+set autoindent
+set tabstop=4
+set number
+set smarttab
+set smartindent
+set softtabstop=4
+set shiftwidth=4
+syntax enable
+set ruler
+set laststatus=2
+set wildmenu
+"set cursorline
+set visualbell
+set mouse=a
+set title
+set cindent
