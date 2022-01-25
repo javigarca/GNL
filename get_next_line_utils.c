@@ -12,48 +12,22 @@
 
 #include "get_next_line.h"
 
-char	*ft_stradd(char *dest, char *src)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (dest[i] != 00)
-		i++;
-	while (src[j])
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_strdup(char *src)
+char	*ft_createline(char *src, int len)
 {
 	int		i;
-	int		len;
 	char	*dst;
 
-	if (!src)
-	{
-		dst = (char *)malloc(sizeof(char) * 1);
-		dst[0] = '\0';
-		return (dst);
-	}
-	len = 0;
-	while (src[len] != '\0')
-		len++;
+	if ((!src) || (len == 0))
+		return (NULL);
 	dst = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dst)
-		exit (1);
+		return (NULL);
 	i = 0;
-	while (src[i])
+	while (len)
 	{
 		dst[i] = src[i];
 		i++;
+		len--;
 	}
 	dst[i] = '\0';
 	return (dst);
@@ -73,7 +47,7 @@ char	*ft_substr(char *s, int start, int len)
 	z = 0;
 	if (len > ft_strlen(s))
 		len = ft_strlen(s);
-	aux = (char *) malloc(len);
+	aux = (char *) malloc(len + 1);
 	if (!aux)
 		return (0);
 	while (z < len)

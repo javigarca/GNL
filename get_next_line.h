@@ -21,12 +21,12 @@
 
 char	*get_next_line(int fd);
 char	*get_next_line_2(char **ldr, int endb);
-char	*ft_strdup(char *src);
+char	*ft_createline(char *src, int len);
 int		ft_strlen(const char *s);
 int		ft_searchend(char *str, int c);
 char	*ft_feedline(char *str, int len);
 char	*ft_substr(char *s, int start, int len);
-char	*ft_stradd(char *dest, char *src);
+char	*ft_addbuffer(char *ldr, char *buff);
 int		ft_readfile(int fdr, char **ldr);
 
 #endif
