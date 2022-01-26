@@ -40,7 +40,7 @@ while (linea)
 	linea = get_next_line(fd);
 	cont++;
 }
-//system ("leaks a.out");
+system ("leaks a.out");
 /*
    texto = get_next_line(fd);
 printf("%s", texto);

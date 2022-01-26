@@ -58,7 +58,6 @@ int	ft_readfile(int fdr, char **ldr)
 		else
 			*ldr = ft_addbuffer(*ldr, buffer);
 	}
-	buffer = NULL;
 	free(buffer);
 	return (byts);
 }
@@ -66,7 +65,7 @@ int	ft_readfile(int fdr, char **ldr)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*loader;
+	static char	*loader[4096];
 	int			end;
 	int			bytes;
 
@@ -76,14 +75,14 @@ char	*get_next_line(int fd)
 	bytes = 1;
 	while ((end == 0) && (bytes != 0))
 	{
-		bytes = ft_readfile(fd, &loader);
-		if ((bytes < 0) || ((!loader) && (bytes == 0)))
+		bytes = ft_readfile(fd, &loader[fd]);
+		if ((bytes < 0) || ((!loader[fd]) && (bytes == 0)))
 			return (NULL);
-		end = ft_searchend(loader, '\n');
+		end = ft_searchend(loader[fd], '\n');
 	}
 	if (end == 0)
-		end = ft_strlen(loader);
-	line = get_next_line_2(&loader, end);
+		end = ft_strlen(loader[fd]);
+	line = get_next_line_2(&loader[fd], end);
 	return (line);
 }
 
