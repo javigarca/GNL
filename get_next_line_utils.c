@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:47:34 by javigarc          #+#    #+#             */
-/*   Updated: 2022/01/12 20:08:47 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:05:32 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ char	*ft_substr(char *s, int start, int len)
 	int		z;
 
 	i = start;
-	if (!s)
+	if ((i >= ft_strlen(s)) || (len == 0) || (!s))
+	{
+		free(s);
 		return (NULL);
-	if ((i >= ft_strlen(s)) || (len == 0))
-		return (NULL);
+	}
 	z = 0;
 	if (len > ft_strlen(s))
 		len = ft_strlen(s);

@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2022/01/13 13:31:08 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:07:10 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int	ft_readfile(int fdr, char **ldr)
 	if (!buffer)
 		return (-1);
 	byts = read (fdr, buffer, BUFFER_SIZE);
+	if (byts == 0)
+	{
+		free(buffer);
+		return (0);
+	}
 	buffer[byts] = '\0';
 	if (byts > 0)
 	{
@@ -58,8 +63,8 @@ int	ft_readfile(int fdr, char **ldr)
 		else
 			*ldr = ft_addbuffer(*ldr, buffer);
 	}
-	buffer = NULL;
-	free(buffer);
+	if (byts < 0)
+		free(buffer);
 	return (byts);
 }
 
@@ -91,9 +96,6 @@ char	*get_next_line_2(char **ldr, int endb)
 {
 	char	*line_2;
 
-	line_2 = (char *) malloc(sizeof(char) * (endb + 1));
-	if (!line_2)
-		return (NULL);
 	line_2 = ft_createline(*ldr, endb);
 	*ldr = ft_substr(*ldr, endb, ft_strlen(*ldr) - endb);
 	return (line_2);
