@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:09:58 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/03 20:12:04 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:37:33 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <string.h>
 
 char	*get_next_line(int fd);
-char	*get_next_line_2(char **ldr, int endb);
 char	*ft_createline(char *src, int len);
 int		ft_strlen(const char *s);
 int		ft_searchend(char *str, int c);

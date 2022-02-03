@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/03 20:01:39 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/03 20:32:59 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,9 @@ char	*get_next_line(int fd)
 	}
 	if (end == 0)
 		end = ft_strlen(loader[fd]);
-	line = get_next_line_2(&loader[fd], end);
+	line = ft_createline(loader[fd], end);
+	loader[fd] = ft_substr(loader[fd], end, ft_strlen(loader[fd]) - end);
 	return (line);
-}
-
-char	*get_next_line_2(char **ldr, int endb)
-{
-	char	*line_2;
-
-	line_2 = ft_createline(*ldr, endb);
-	*ldr = ft_substr(*ldr, endb, ft_strlen(*ldr) - endb);
-	return (line_2);
 }
 
 int	ft_searchend(char *str, int tofind)
