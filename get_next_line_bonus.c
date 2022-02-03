@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/03 20:32:59 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/03 21:47:42 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	ft_readfile(int fdr, char **ldr)
 		free(buffer);
 		return (0);
 	}
-	buffer[byts] = '\0';
+	if (byts < 0)
+		free(buffer);
 	if (byts > 0)
 	{
+		buffer[byts] = '\0';
 		if (!*ldr)
 			*ldr = buffer;
 		else
 			*ldr = ft_addbuffer(*ldr, buffer);
 	}
-	if (byts < 0)
-		free(buffer);
 	return (byts);
 }
 
