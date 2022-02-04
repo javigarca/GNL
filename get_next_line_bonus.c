@@ -6,11 +6,11 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 13:16:21 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/03 21:47:42 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:09:05 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_addbuffer(char *ldr, char *buff)
 {

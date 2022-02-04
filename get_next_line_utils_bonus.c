@@ -6,11 +6,11 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 14:47:34 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/03 20:05:26 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:09:26 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_createline(char *src, int len)
 {
