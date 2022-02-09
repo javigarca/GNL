@@ -6,7 +6,7 @@
 /*   By: javigarc <javigarc@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 20:09:58 by javigarc          #+#    #+#             */
-/*   Updated: 2022/02/04 13:10:48 by javigarc         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:00:14 by javigarc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <errno.h>
 # include <string.h>
 
 char	*get_next_line(int fd);
